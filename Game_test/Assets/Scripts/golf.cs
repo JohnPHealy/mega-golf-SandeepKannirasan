@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class golf : MonoBehaviour
 {
+
+    public AudioSource ticksource;
+
     float xRot, yRot = 0f;
     public Rigidbody ball;
     public float rotationspeed = 2f;
@@ -16,9 +19,13 @@ public class golf : MonoBehaviour
     // Start is called before the first frame update
     void Update ()
     {
+        ticksource = GetComponent<AudioSource>();
+
         transform.position = ball.position;
         if (Input.GetMouseButton(0))
         {
+          
+
             xRot += Input.GetAxis("Mouse X") * rotationspeed;
             yRot += Input.GetAxis("Mouse Y") * rotationspeed;
             if (yRot < -35f)
@@ -38,6 +45,7 @@ public class golf : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            ticksource.Play();
             ball.velocity = transform.forward * shootPower;
             line.gameObject.SetActive(false);
             
